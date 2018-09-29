@@ -16,10 +16,13 @@
     <script src="script.js"></script>
 </head>
 
-<body onload="initialize()">
+<body >
         <a href="https://github.com/javeria2512/chart"><i class="fab fa-github"></i></a>
     <div class="chart-container" style="position: relative; height:60vh; width:80vw">
         <canvas id="myChart"></canvas>
+        <input type="text" id="one" placeholder="enter year eg 2001">
+        <input type="text" id="two" placeholder="enter country eg Pakistan">
+        <button type="submit" onclick="return initialize()" >submit</button>
     </div>
 </body>
 
