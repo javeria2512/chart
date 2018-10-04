@@ -53,41 +53,53 @@
      
 
 function initialize(){
- const year = document.querySelector('#one').value;
+//  const year = document.querySelector('#one').value;
  const country = document.querySelector('#two').value;
 
 
  console.log(typeof(country));
-    fetch(`http://api.population.io:80/1.0/population/${year}/${country}/`)
+    fetch(`https://restcountries.eu/rest/v2/name/${country}?fullText=true`)
     .then(function(response){
         return response.json()
     })
     .then(function(data){
         console.log('data from network');
+        console.log(data);
+        let el =document.querySelector('#specific');
+        el.innerHTML=`<h1 >Population VS Area Calculator OF ${data[0].name}</h1>`;
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'bar',
+    type: 'pie',
 
     // The data for our dataset
     data: {
-        labels: ["total", "males", "females"],
+        labels: ["Total Population", "Total Area" ],
         datasets: [{
             label: "My First dataset",
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [data[0].total,data[1].males,data[2].females],
+            backgroundColor: ['rgba(37, 84, 97,0.5)',
+            'rgba(187, 36, 83, 1)'],
+            borderColor: 'transparent',
+            data: [data[0].population,data[0].area],
         }]
     },
 
     // Configuration options go here
-    options: {}
+    options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
 });
 
 })
 .catch(function(error){
-    alert("first letter of country must be capital like Pakistan,Japan");
+    alert("please fill the form");
     console.log("first letter of country must be capital like Pakistan,Japan");
 
 })
